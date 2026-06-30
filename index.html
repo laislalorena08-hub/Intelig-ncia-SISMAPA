@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Inteligência da Regionalização - SISMAPA RN</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="SETUR.png" class="brand-image-logo" alt="Logo SETUR RN">
+                <div class="brand-info">
+                    <h2>SETUR/RN</h2>
+                    <span>Interlocução Estadual</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <button class="menu-item active" data-tab="tab-overview">
+                    <i class="fa-solid fa-chart-pie"></i> Visão Geral
+                </button>
+                <button class="menu-item" data-tab="tab-history">
+                    <i class="fa-solid fa-timeline"></i> Evolução Histórica
+                </button>
+                <button class="menu-item" data-tab="tab-municipalities">
+                    <i class="fa-solid fa-city"></i> Municípios
+                </button>
+                <button class="menu-item" data-tab="tab-executive">
+                    <i class="fa-solid fa-file-invoice"></i> Resumo Executivo
+                </button>
+                <button class="menu-item" data-tab="tab-alerts">
+                    <i class="fa-solid fa-bell"></i> Alertas & Validação
+                    <span class="alert-badge" id="badge-alerts-count">0</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="theme-toggle" id="theme-toggle-btn">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>Modo Claro</span>
+                </div>
+                <div class="setur-logo">
+                    <span class="setur-label">SETUR / RN</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-title-section">
+                    <div class="header-title">
+                        <h1>Centro de Inteligência da Regionalização</h1>
+                        <p>Monitoramento do Mapa do Turismo Brasileiro no Rio Grande do Norte</p>
+                    </div>
+                </div>
+                
+                <div class="header-controls">
+                    <!-- Report selector dropdown (Requirement 4 & 6) -->
+                    <div class="control-select-wrapper">
+                        <label for="report-selector"><i class="fa-solid fa-calendar-alt"></i> Mês de Competência:</label>
+                        <select id="report-selector" class="control-select">
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+
+                    <!-- PDF Import trigger -->
+                    <button class="btn btn-primary" id="btn-import-simulated" title="Simular importação de novo relatório">
+                        <i class="fa-solid fa-file-import"></i> Atualizar Dados
+                    </button>
+                </div>
+            </header>
+
+            <!-- Tab Content: Visão Geral -->
+            <section id="tab-overview" class="tab-pane active">
+                <!-- KPI Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card" id="kpi-muns" style="cursor:pointer;">
+                        <div class="kpi-icon icon-blue"><i class="fa-solid fa-city"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Municípios Validados</span>
+                            <h3 class="kpi-value" id="kpi-muns-val">0</h3>
+                            <span class="kpi-trend" id="kpi-muns-trend"><i class="fa-solid fa-minus"></i> Estável</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card" id="kpi-igrs" style="cursor:pointer;">
+                        <div class="kpi-icon icon-orange"><i class="fa-solid fa-network-wired"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Instâncias de Governança (IGR)</span>
+                            <h3 class="kpi-value" id="kpi-igrs-val">0</h3>
+                            <span class="kpi-trend" id="kpi-igrs-trend"><i class="fa-solid fa-minus"></i> Estável</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card" id="kpi-active" style="cursor:pointer;">
+                        <div class="kpi-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Vigentes</span>
+                            <h3 class="kpi-value" id="kpi-active-val">0</h3>
+                            <span class="kpi-subtext" id="kpi-active-pct">0% do total</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card" id="kpi-warning" style="cursor:pointer;">
+                        <div class="kpi-icon icon-yellow"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Vencendo (90 dias)</span>
+                            <h3 class="kpi-value" id="kpi-warning-val">0</h3>
+                            <span class="kpi-subtext">Atenção Imediata</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card" id="kpi-danger" style="cursor:pointer;">
+                        <div class="kpi-icon icon-red"><i class="fa-solid fa-circle-xmark"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Vencidos</span>
+                            <h3 class="kpi-value" id="kpi-danger-val">0</h3>
+                            <span class="kpi-subtext">Bloqueio Crítico</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card" id="kpi-changes" style="cursor:pointer;">
+                        <div class="kpi-icon icon-info"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Alterações de Vigência</span>
+                            <h3 class="kpi-value" id="kpi-changes-val">0</h3>
+                            <span class="kpi-subtext">No mês</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Layout Grid -->
+                <div class="dashboard-grid">
+                    <!-- Column Left: Risk Assessment and Regional Map -->
+                    <div class="grid-card col-span-2">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-map"></i> Mapa Temático de Riscos</h3>
+                            <div class="card-actions">
+                                <span class="badge badge-outline"><i class="fa-solid fa-shield-halved"></i> 11 Regiões Mapeadas</span>
+                            </div>
+                        </div>
+                        <div class="card-body map-container-layout">
+                            <div class="map-wrapper">
+                                <!-- Interactive SVG map -->
+                                <svg id="rn-regions-svg" viewBox="0 0 800 400" width="100%" height="100%">
+                                    <rect width="100%" height="100%" fill="transparent"/>
+                                    <text x="400" y="200" text-anchor="middle" fill="#888" id="svg-loading-text">Carregando mapa...</text>
+                                </svg>
+                            </div>
+                            <div class="map-legend">
+                                <h4>Legenda de Risco por IGR</h4>
+                                <p class="legend-desc">Status gerencial das Instâncias de Governança Regionais (IGRs).</p>
+                                <ul class="legend-list">
+                                    <li><span class="legend-color color-safe"></span> <strong>Baixo Risco</strong> (<10% pendente)</li>
+                                    <li><span class="legend-color color-moderate"></span> <strong>Médio Risco</strong> (10% - 30%)</li>
+                                    <li><span class="legend-color color-high"></span> <strong>Alto Risco</strong> (Possui vencido)</li>
+                                    <li><span class="legend-color color-critical"></span> <strong>Crítico</strong> (> 30% vencido)</li>
+                                </ul>
+                                <div class="selected-region-details" id="selected-region-card">
+                                    <h5 id="sel-region-name">Selecione uma IGR no mapa</h5>
+                                    <div class="region-mini-kpis" style="display:none;" id="sel-region-stats">
+                                        <div><span>Total:</span> <strong id="sel-region-total">0</strong></div>
+                                        <div><span class="text-green">Vigentes:</span> <strong id="sel-region-vig">0</strong></div>
+                                        <div><span class="text-yellow">Atenção:</span> <strong id="sel-region-warn">0</strong></div>
+                                        <div><span class="text-red">Vencidos:</span> <strong id="sel-region-venc">0</strong></div>
+                                    </div>
+                                    
+                                    <!-- IGR Risk Assessment Panel -->
+                                    <div id="sel-region-risk-panel" style="display:none; margin-top: 14px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                                        <div class="risk-indicator-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
+                                            <span style="font-size:11px; font-weight:600; color: var(--text-secondary);">Semáforo Gerencial:</span>
+                                            <span class="badge" id="sel-region-risk-semaphore" style="font-size:10px;">-</span>
+                                        </div>
+                                        <div class="risk-indicator-row" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                                            <span style="font-size:11px; font-weight:600; color: var(--text-secondary);">Percentual de Risco:</span>
+                                            <strong id="sel-region-risk-pct" style="font-size:12px;">0%</strong>
+                                        </div>
+                                        
+                                        <div class="control-select-wrapper" style="margin-bottom: 8px; display:flex; flex-direction:column; gap:4px; align-items:stretch;">
+                                            <label for="sel-region-days-filter" style="font-size:11px; font-weight:600; color: var(--text-secondary);">Filtrar por Vencimento:</label>
+                                            <select id="sel-region-days-filter" class="control-select select-sm" style="width:100%;">
+                                                <option value="all">Todos os Municípios</option>
+                                                <option value="30">Vencimento em até 30 dias</option>
+                                                <option value="60">Vencimento em até 60 dias</option>
+                                                <option value="90">Vencimento em até 90 dias</option>
+                                                <option value="180">Vencimento em até 180 dias</option>
+                                                <option value="expired">Municípios vencidos</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="region-muns-list" id="sel-region-muns-list" style="max-height: 120px; overflow-y: auto; font-size:11px; margin-top:6px; border: 1px solid var(--border-color); border-radius: 6px; padding: 6px; background-color: rgba(0,0,0,0.015);">
+                                            <!-- Dynamic IGR municipalities listing -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column Right: Region Rankings -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-list-ol"></i> Tamanho das Regiões (IGRs)</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" id="bar-chart-container">
+                                <div class="custom-bar-chart" id="igr-size-ranking">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid grid-two-cols">
+                    <!-- Bottom Left: Validity Distribution -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-hourglass-half"></i> Distribuição de Prazos de Validade</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="validity-distribution-list" id="validity-distribution">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Right: Change Alerts Feed -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-bolt"></i> Mudanças & Alertas Recentes</h3>
+                            <button class="btn btn-text" onclick="switchTab('tab-alerts')">Ver todos</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert-feed-compact" id="overview-alerts-feed">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Content: Evolução Histórica (Requirement 4 & 5) -->
+            <section id="tab-history" class="tab-pane">
+                <!-- Timeline KPI Row -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon icon-blue"><i class="fa-solid fa-calendar-alt"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Período Histórico</span>
+                            <h3 class="kpi-value" style="font-size:18px;" id="hist-kpi-period">Março - Junho</h3>
+                            <span class="kpi-subtext">Histórico de 4 competências</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon icon-green"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Total de Entradas</span>
+                            <h3 class="kpi-value text-green" id="hist-kpi-entradas">0</h3>
+                            <span class="kpi-subtext">Entradas do mês</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon icon-red"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Total de Saídas</span>
+                            <h3 class="kpi-value text-red" id="hist-kpi-saidas">0</h3>
+                            <span class="kpi-subtext">Saídas do mês</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon icon-yellow"><i class="fa-solid fa-rotate"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Prorrogações de Vigência</span>
+                            <h3 class="kpi-value text-yellow" id="hist-kpi-revalidacoes">0</h3>
+                            <span class="kpi-subtext">Atualizações do mês</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Historical Line Chart: Municipalities and IGRs -->
+                    <div class="grid-card col-span-2">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-line"></i> Evolução Histórica da Regionalização</h3>
+                        </div>
+                        <div class="card-body" style="height:320px;">
+                            <svg id="history-line-chart-svg" viewBox="0 0 700 260" width="100%" height="100%">
+                                <!-- Rendered dynamically -->
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Historical Bar Chart: Inputs and Outputs -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-bar"></i> Movimentações Mensais</h3>
+                        </div>
+                        <div class="card-body" style="height:320px;">
+                            <svg id="history-bar-chart-svg" viewBox="0 0 350 260" width="100%" height="100%">
+                                <!-- Rendered dynamically -->
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid grid-three-cols" style="display:grid; grid-template-columns: 1fr 1fr 1.2fr; gap:20px;">
+                    <!-- Column 1: Stability Ranking -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-circle-check text-green"></i> Estabilidade por Região</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-2" style="font-size:11px;">IGRs ordenadas pela menor taxa de alteração ou risco na série histórica.</p>
+                            <ul class="ranking-simple-list" id="hist-ranking-stability">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Activity/Changes Ranking -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-triangle-exclamation text-yellow"></i> Volatilidade por Região</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-2" style="font-size:11px;">IGRs ordenadas pelo maior número de modificações estruturais.</p>
+                            <ul class="ranking-simple-list" id="hist-ranking-volatility">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Audit Event Trail -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-history"></i> Auditoria de Alterações Históricas</h3>
+                        </div>
+                        <div class="card-body" style="max-height:260px; overflow-y:auto;">
+                            <div class="timeline-trail-list" id="hist-event-trail">
+                                <!-- Dynamic audit feed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Content: Municípios -->
+            <section id="tab-municipalities" class="tab-pane">
+                <div class="grid-card">
+                    <!-- Table Search & Filter Controls -->
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="table-search" placeholder="Buscar município ou IGR...">
+                        </div>
+                        
+                        <div class="filters-wrapper">
+                            <span class="badge badge-outline" id="active-kpi-filter-indicator" style="display:none; border-color: var(--primary-color); color: var(--primary-color);">Filtro Ativo</span>
+
+                            <select id="filter-igr" class="control-select select-sm">
+                                <option value="">Todas as IGRs</option>
+                                <!-- Populated via JS -->
+                            </select>
+                            
+                            <select id="filter-status" class="control-select select-sm">
+                                <option value="">Todas as Situações</option>
+                                <option value="Vigente">Vigente</option>
+                                <option value="Próximo do Vencimento">Próximo do Vencimento</option>
+                                <option value="Vencido">Vencido</option>
+                            </select>
+
+                            <button class="btn btn-outline btn-sm" id="btn-clear-table-filters" title="Limpar todos os filtros" style="display:none;">
+                                <i class="fa-solid fa-filter-circle-xmark"></i> Limpar
+                            </button>
+
+                            <button class="btn btn-outline btn-sm" id="btn-export-csv" title="Exportar dados para CSV">
+                                <i class="fa-solid fa-file-csv"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Table -->
+                    <div class="table-container">
+                        <table class="data-table" id="muns-data-table">
+                            <thead>
+                                <tr>
+                                    <th>Município</th>
+                                    <th>IGR / Região</th>
+                                    <th>Data de Vigência</th>
+                                    <th>Dias Restantes</th>
+                                    <th>Status</th>
+                                    <th>Histórico & Auditoria</th>
+                                </tr>
+                            </thead>
+                            <tbody id="muns-table-body">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table Footer pagination/counts -->
+                    <div class="table-footer">
+                        <span id="table-count-label">Mostrando 0 de 0 municípios</span>
+                        <div class="pagination" id="table-pagination">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Content: Resumo Executivo -->
+            <section id="tab-executive" class="tab-pane">
+                <div class="executive-report-layout">
+                    <!-- Document Controls Sidebar (Requirement 3) -->
+                    <div class="grid-card doc-sidebar">
+                        <h4>Ações do Relatório</h4>
+                        <p class="text-muted">Gere relatórios formatados.</p>
+                        <hr>
+                        <button class="btn btn-outline btn-block mb-2" id="btn-copy-report">
+                            <i class="fa-solid fa-copy"></i> Copiar para Área de Transferência
+                        </button>
+                        <button class="btn btn-outline btn-block mb-2" id="btn-print-report">
+                            <i class="fa-solid fa-print"></i> Imprimir / Salvar PDF
+                        </button>
+                        <hr>
+                        <h5>Contatos Prioritários</h5>
+                        <ul class="priority-contacts">
+                            <li><i class="fa-solid fa-envelope"></i> polosturisticos@gmail.com</li>
+                            <li><i class="fa-solid fa-phone"></i> Interlocução: (84) 98113-1273</li>
+                        </ul>
+                    </div>
+
+                    <!-- Right Document Area (Requirement 1 & 2) -->
+                    <div class="grid-card doc-paper" id="executive-document">
+                        <div class="doc-header">
+                            <div class="doc-logo-section">
+                                <img src="SETUR.png" alt="Logo SETUR RN" style="height: 48px; width: auto; object-fit: contain;">
+                                <div>
+                                    <h3>SECRETARIA DE ESTADO DO TURISMO DO RN</h3>
+                                    <span>COORDENAÇÃO DE ARTICULAÇÃO E ORDENAMENTO</span>
+                                </div>
+                            </div>
+                            <div class="doc-date" id="doc-generation-date">Data: --/--/----</div>
+                        </div>
+
+                        <div class="doc-title">
+                            <h2>RELATÓRIO DE MONITORAMENTO E INTELIGÊNCIA</h2>
+                            <h4>Mapa do Turismo Brasileiro no Rio Grande do Norte</h4>
+                        </div>
+
+                        <div class="doc-section">
+                            <h3>1. Panorama Institucional</h3>
+                            <p>O presente relatório consolida as principais métricas de inteligência e monitoramento do Mapa do Turismo Brasileiro no Estado do Rio Grande do Norte, referentes aos dados da <strong><span id="doc-semana-ref">--/--/----</span></strong>. O monitoramento contínuo das Instâncias de Governança Regionais (IGRs) e seus municípios constitui diretriz fundamental da política de regionalização e ordenamento do turismo sob responsabilidade da COORDENAÇÃO DE ARTICULAÇÃO E ORDENAMENTO da SETUR/RN.</p>
+                            
+                            <div class="doc-mini-table">
+                                <div class="mini-table-row">
+                                    <span>Total de Municípios no Mapa/RN:</span>
+                                    <strong id="doc-tot-muns">0</strong>
+                                </div>
+                                <div class="mini-table-row">
+                                    <span>Total de Regiões Turísticas (IGRs):</span>
+                                    <strong id="doc-tot-igrs">0</strong>
+                                </div>
+                                <div class="mini-table-row">
+                                    <span>Municípios com Vigência Ativa:</span>
+                                    <strong class="text-green" id="doc-tot-vig">0</strong>
+                                </div>
+                                <div class="mini-table-row">
+                                    <span>Municípios em Alerta de Expirar (90 dias):</span>
+                                    <strong class="text-yellow" id="doc-tot-warn">0</strong>
+                                </div>
+                                <div class="mini-table-row">
+                                    <span>Municípios Vencidos:</span>
+                                    <strong class="text-red" id="doc-tot-venc">0</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-section">
+                            <h3>2. Alterações e Movimentações do Mês</h3>
+                            <div class="doc-alert-box info-box" id="doc-weekly-changes-box">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="doc-section">
+                            <h3>3. Análise de Risco & Intervenções Críticas</h3>
+                            <p>Com base na série histórica e no relatório atual, foram mapeadas as seguintes vulnerabilidades regionais. Recomenda-se acionar as prefeituras indicadas para evitar perda de acesso a verbas de fomento:</p>
+                            <div id="doc-alerts-list-box">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="doc-section">
+                            <h3>4. Diagnóstico de Tendência Histórica da Regionalização</h3>
+                            <p id="doc-historical-trends-text">
+                                Analisando os relatórios das últimas semanas, observa-se uma flutuação nas regularizações municipais. As regiões de maior estabilidade mantiveram plena conformidade, enquanto outras requerem atuação emergencial da coordenação.
+                            </p>
+                        </div>
+
+                        <div class="doc-section">
+                            <h3>5. Plano de Ação & Recomendações Prioritárias</h3>
+                            <div class="recommendations-box">
+                                <ul>
+                                    <li><i class="fa-solid fa-circle-arrow-right"></i> <strong>Ação 1: Notificação de Vencidos:</strong> Emitir notificação formal às prefeituras dos municípios com status <strong>Vencido</strong> para que iniciem imediatamente a reinserção de documentos no SISMAPA.</li>
+                                    <li><i class="fa-solid fa-circle-arrow-right"></i> <strong>Ação 2: Acompanhamento Preventivo:</strong> Mobilizar os interlocutores regionais das IGRs com municípios no status <strong>Próximo do Vencimento</strong>, prestando suporte técnico para validação das certidões e do plano de ação municipal.</li>
+                                    <li><i class="fa-solid fa-circle-arrow-right"></i> <strong>Ação 3: Reunião com IGRs Sob Risco:</strong> Priorizar assistência às IGRs com mais de 30% de municípios pendentes ou em vencimento crítico, agendando reuniões com a coordenação estadual.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="doc-footer">
+                            <div class="doc-signature">
+                                <div class="sig-line"></div>
+                                <span>COORDENAÇÃO DE ARTICULAÇÃO E ORDENAMENTO</span>
+                                <strong>SETUR/RN - Interlocução Estadual</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab Content: Alertas & Validação -->
+            <section id="tab-alerts" class="tab-pane">
+                <div class="dashboard-grid grid-two-cols">
+                    <!-- Left: Validation Errors / Logs -->
+                    <div class="grid-card">
+                        <div class="card-header border-red">
+                            <h3><i class="fa-solid fa-triangle-exclamation text-red"></i> Relatório de Inconsistências & Validação</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-3">Erros estruturais, dados vazios ou inconsistências matemáticas encontradas no arquivo PDF processado nesta semana.</p>
+                            <div class="validation-log-list" id="validation-errors-feed">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Full Alerts Feed -->
+                    <div class="grid-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-bell"></i> Canal Geral de Notificações</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted mb-3">Notificações geradas automaticamente com base no status das vigências municipais e regionais.</p>
+                            <div class="alerts-feed-full" id="alerts-feed-full-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Simulated Upload Modal -->
+    <div class="modal" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-import"></i> Atualizar Monitoramento SISMAPA</h3>
+                <button class="btn-close" id="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>O portal <strong>Inteligência da Regionalização</strong> está ativo e sincronizado com os dados na pasta do projeto.</p>
+                <p class="mb-3">Para processar um novo relatório semanal enviado pelo MTur, coloque o arquivo PDF no diretório e execute no terminal:</p>
+                
+                <div class="code-box">
+                    <span id="terminal-command-text">python update_dashboard.py &lt;caminho_do_pdf&gt;</span>
+                    <button class="btn-copy-code" id="btn-copy-cmd" title="Copiar comando"><i class="fa-solid fa-copy"></i></button>
+                </div>
+
+                <div class="upload-dropzone mt-4" id="dropzone-sim">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <h4>Simular Upload Diretamente pela Interface</h4>
+                    <p class="text-muted select-none">Selecione uma opção de simulação para testar reações do dashboard com novas cargas e relatórios adicionais.</p>
+                    <div class="simulation-options mt-3">
+                        <button class="btn btn-outline btn-sm m-1" id="btn-sim-normal">Recarregar Série Histórica Mensal (4 Meses)</button>
+                        <button class="btn btn-outline btn-sm m-1" id="btn-sim-changes">Simular Carga Especial (Julho com Mudanças Críticas)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Municipality Audit/History -->
+    <div class="modal" id="history-modal">
+        <div class="modal-content" style="width: 580px; max-width: 95%;">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> Histórico do Município: <span id="history-modal-title">Apodi</span></h3>
+                <button class="btn-close" id="history-modal-close">&times;</button>
+            </div>
+            <div class="modal-body" style="padding-top: 10px;">
+                <p class="text-muted mb-3" style="font-size:12px;">Auditoria temporal das alterações de vigência e composição de IGR registrados no histórico mensal de relatórios.</p>
+                <div class="municipality-history-timeline" id="mun-history-timeline">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Database script file -->
+    <script src="data/database.js" charset="utf-8"></script>
+    <!-- Main Script -->
+    <script src="app.js" charset="utf-8"></script>
+</body>
+</html>

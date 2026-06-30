@@ -1,0 +1,131 @@
+1. Atualização da Coordenação Responsável
+
+Em todo o sistema, substitua qualquer referência existente à coordenação pelo nome oficial:
+
+COORDENAÇÃO DE ARTICULAÇÃO E ORDENAMENTO
+
+Esta alteração deve ser aplicada em:
+
+Cabeçalho do dashboard;
+Rodapé;
+Página inicial;
+Relatórios automáticos;
+Documentos exportados;
+Tela "Sobre";
+Informações institucionais;
+Demais locais onde houver identificação da coordenação.
+
+Utilize exatamente esta nomenclatura.
+
+2. Atualização dos Contatos Institucionais
+
+Atualize os contatos prioritários da plataforma para:
+
+E-mail:
+polosturisticos@gmail.com
+
+Telefone:
+(84) 8113-1273
+
+Esses contatos deverão aparecer nas áreas institucionais, telas informativas e relatórios gerados automaticamente, substituindo quaisquer informações anteriores.
+
+3. Padronização dos Relatórios Gerados
+
+Localize todas as ocorrências da frase:
+
+"Gere relatórios formatados prontos para envio à coordenação ou secretarias."
+
+Substitua por:
+
+"Gere relatórios formatados."
+
+A nova redação deverá ser utilizada em toda a plataforma, mantendo linguagem objetiva e institucional.
+
+4. Alteração da Lógica Temporal
+
+A plataforma atualmente utiliza o conceito de semanas para realizar comparações históricas.
+
+Altere toda a lógica de apresentação para considerar os relatórios como competências mensais, utilizando a data existente no nome dos arquivos.
+
+As comparações deverão utilizar meses, por exemplo:
+
+Março
+Abril
+Maio
+Junho
+Julho
+Demais meses existentes futuramente
+
+Substitua expressões como:
+
+Semana anterior
+Atualização semanal
+Evolução semanal
+Comparação semanal
+Histórico semanal
+Entradas da semana
+Saídas da semana
+
+por suas equivalentes mensais, como:
+
+Mês anterior
+Atualização mensal
+Evolução mensal
+Comparação mensal
+Histórico mensal
+Entradas do mês
+Saídas do mês
+
+Toda a interface deverá adotar essa nova terminologia.
+
+5. Atualização das Análises Históricas
+
+As análises comparativas deverão considerar os relatórios mensais existentes.
+
+Exemplos:
+
+Comparação entre Março e Abril;
+Comparação entre Abril e Maio;
+Comparação entre Maio e Junho;
+Evolução desde o primeiro relatório disponível.
+
+Todos os gráficos temporais, rankings, indicadores e insights deverão utilizar os meses como unidade de análise.
+
+6. Atualização dos Dashboards
+
+Atualize automaticamente todos os componentes que utilizem referências temporais, incluindo:
+
+KPIs;
+Cards executivos;
+Gráficos;
+Tabelas;
+Linha do tempo;
+Filtros;
+Relatórios;
+Insights automáticos.
+
+Os filtros deverão permitir seleção por:
+
+Mês;
+Ano;
+Competência do relatório.
+7. Atualização dos Insights Executivos
+
+Os textos automáticos deverão deixar de mencionar semanas e passar a utilizar competências mensais.
+
+Exemplos:
+
+Principais alterações do mês;
+Comparação com o mês anterior;
+Evolução histórica mensal;
+Tendências observadas ao longo dos meses;
+Municípios incluídos no mês;
+Municípios removidos no mês;
+Alterações registradas no mês.
+8. Regras Importantes
+Não recriar o dashboard.
+Não alterar a estrutura já desenvolvida.
+Manter toda a base histórica.
+Manter todas as funcionalidades existentes.
+Aplicar apenas os ajustes institucionais e de nomenclatura descritos neste prompt.
+Garantir consistência visual e textual em toda a plataforma, utilizando exclusivamente a terminologia mensal para as análises temporais e a identificação oficial da COORDENAÇÃO DE ARTICULAÇÃO E ORDENAMENTO.
