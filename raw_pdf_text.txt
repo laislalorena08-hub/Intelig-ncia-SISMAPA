@@ -1,0 +1,169 @@
+--- Page 1 ---
+RELATÓRIO COMPOSIÇÃO DAS REGIÕES
+MTur - Ministério do Turismo
+UF: Rio Grande do Norte
+Total de: 11 Regiões e 96 Municípios validados na composição das regiões de sua UF.
+ 
+ 
+IGR Trairi
+Nome da Região Data de Vigência
+IGR Trairi 15/04/2027
+Municípios da região (5)
+Nome do Município Data de Vigência
+Santa Cruz 02/06/2027
+Sítio Novo 23/04/2027
+São Bento do Trairí 29/04/2027
+Santo Antônio 12/09/2026
+Lajes Pintadas 29/04/2027
+IGR Costa Branca
+Nome da Região Data de Vigência
+IGR Costa Branca 06/05/2027
+Municípios da região (5)
+Nome do Município Data de Vigência
+Serra do Mel 26/05/2027
+Areia Branca 09/04/2027
+Baraúna 12/09/2026
+Tibau 22/05/2027
+Mossoró 12/12/2026
+IGR Costa das Dunas
+Página 1 de 5 Relatório gerado em 29/06/2026 10:13:42
+--- Page 2 ---
+Nome da Região Data de Vigência
+IGR Costa das Dunas 22/06/2027
+Municípios da região (22)
+Nome do Município Data de Vigência
+Pureza 13/02/2027
+Espírito Santo 02/06/2027
+São Miguel do Gostoso 05/09/2026
+Parnamirim 24/10/2026
+Arês 24/03/2027
+Baía Formosa 31/03/2027
+Tibau do Sul 31/03/2027
+São José de Mipibu 18/05/2027
+Extremoz 06/05/2027
+Senador Georgino Avelino 29/08/2026
+Pedro Velho 01/06/2027
+Nísia Floresta 24/03/2027
+Goianinha 12/09/2026
+Maxaranguape 12/09/2026
+São Gonçalo do Amarante 12/09/2026
+Vila Flor 12/09/2026
+Natal 10/04/2027
+Canguaretama 30/03/2027
+Touros 20/03/2027
+Rio do Fogo 13/03/2027
+Pedra Grande 07/11/2026
+Ceará-Mirim 23/12/2026
+IGR Seridó
+Nome da Região Data de Vigência
+IGR Seridó 04/07/2026
+Municípios da região (15)
+Nome do Município Data de Vigência
+Lagoa Nova 30/03/2027
+São João do Sabugi 30/03/2027
+Timbaúba dos Batistas 30/03/2027
+Página 2 de 5 Relatório gerado em 29/06/2026 10:13:42
+--- Page 3 ---
+Tenente Laurentino Cruz 23/04/2027
+Jardim de Piranhas 23/04/2027
+Cerro Corá 22/05/2027
+Caicó 30/03/2027
+Acari 31/03/2027
+Parelhas 24/03/2027
+Ipueira 28/05/2027
+Carnaúba dos Dantas 22/08/2026
+Jardim do Seridó 18/06/2027
+Currais Novos 20/03/2027
+Florânia 20/03/2027
+São Fernando 28/11/2026
+Polo Turístico do Oeste Potiguar
+Nome da Região Data de Vigência
+Polo Turístico do Oeste Potiguar 24/03/2027
+Municípios da região (17)
+Nome do Município Data de Vigência
+Olho-d'Água do Borges 23/01/2027
+NOVO Apodi 18/07/2026
+Pau dos Ferros 09/04/2027
+Almino Afonso 31/03/2027
+Alexandria 29/04/2027
+Umarizal 29/04/2027
+Paraná 24/03/2027
+Riacho de Santana 24/03/2027
+Janduís 29/04/2027
+Tenente Ananias 30/01/2027
+São Francisco do Oeste 08/08/2026
+Felipe Guerra 20/03/2027
+Lucrécia 15/04/2027
+São Miguel 15/04/2027
+Marcelino Vieira 28/11/2026
+Major Sales 05/12/2026
+Caraúbas 26/12/2026
+Página 3 de 5 Relatório gerado em 29/06/2026 10:13:42
+--- Page 4 ---
+IGR CAMINHOS DO POTENGI
+Nome da Região Data de Vigência
+IGR CAMINHOS DO POTENGI 06/05/2027
+Municípios da região (9)
+Nome do Município Data de Vigência
+João Câmara 14/05/2027
+Riachuelo 30/03/2027
+Ruy Barbosa 06/05/2027
+São Paulo do Potengi 20/03/2027
+Bom Jesus 14/05/2027
+São Tomé 24/03/2027
+Lagoa de Velhos 13/02/2027
+Senador Elói de Souza 06/03/2027
+São Pedro 13/03/2027
+ASSOCIAÇÃO DOS MUNICIPIOS DA REGIÃO SERRANA DO AGRESTE POTIGUAR - 
+AMSAP
+Nome da Região Data de Vigência
+ASSOCIAÇÃO DOS MUNICIPIOS DA REGIÃO 
+SERRANA DO AGRESTE POTIGUAR - AMSAP 14/05/2027
+Municípios da região (2)
+Nome do Município Data de Vigência
+Monte das Gameleiras 14/05/2027
+Serra de São Bento 14/05/2027
+IGR DO SERTÃO PARA O MAR
+Nome da Região Data de Vigência
+NOVO IGR DO SERTÃO PARA O MAR
+Municípios da região (6)
+Nome do Município Data de Vigência
+Galinhos 18/07/2026
+Carnaubais 05/09/2026
+Jandaíra 10/10/2026
+Guamaré 09/04/2027
+Pendências 03/10/2026
+Página 4 de 5 Relatório gerado em 29/06/2026 10:13:42
+--- Page 5 ---
+Alto do Rodrigues 01/08/2026
+IGR ROTA DO FRIO
+Nome da Região Data de Vigência
+IGR ROTA DO FRIO 14/05/2027
+Municípios da região (5)
+Nome do Município Data de Vigência
+Portalegre 14/05/2027
+Serrinha dos Pintos 14/05/2027
+Riacho da Cruz 20/03/2027
+Martins 15/04/2027
+Viçosa 24/03/2027
+IGR CABUGI CENTRAL
+Nome da Região Data de Vigência
+IGR CABUGI CENTRAL 30/03/2027
+Municípios da região (5)
+Nome do Município Data de Vigência
+Lajes 02/06/2027
+Santana do Matos 01/06/2027
+Fernando Pedroza 08/06/2027
+Angicos 15/04/2027
+Afonso Bezerra 30/12/2026
+POLO VALE MAR
+Nome da Região Data de Vigência
+POLO VALE MAR 05/09/2026
+Municípios da região (5)
+Nome do Município Data de Vigência
+Ipanguaçu 23/01/2027
+Açu 05/09/2026
+Itajá 05/09/2026
+São Rafael 05/09/2026
+Upanema 23/01/2027
+Página 5 de 5 Relatório gerado em 29/06/2026 10:13:42
